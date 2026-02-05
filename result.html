@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Event Detection Result</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="result-page">
+  <div class="result-container">
+    <h1>🎥 Video Event Detection Result</h1>
+
+    <!-- Detection Result Section -->
+    <div class="result-card">
+      <h2>Detected Event</h2>
+      <p class="main-event">{{ result.event }}</p>
+
+      <div class="details">
+        <p><strong>Confidence:</strong> {{ result.confidence }}%</p>
+        <p><strong>Duration:</strong> {{ result.duration }}</p>
+      </div>
+    </div>
+
+    <!-- Encryption Key Section -->
+    <div class="key-card">
+      <h2>🔐 Encryption Details</h2>
+      {% if result.key %}
+      <p><strong>Secure Key:</strong></p>
+      <div class="key-box">{{ result.key }}</div>
+      {% else %}
+      <p>No encryption key generated.</p>
+      {% endif %}
+    </div>
+
+    <!-- Frames Section -->
+    {% if result.frames %}
+    <div class="frames-section">
+      <h3>📸 Extracted Frames ({{ result.frames|length }})</h3>
+      <div class="frames-grid">
+        {% for frame in result.frames %}
+        <div class="frame-box">
+          <img src="{{ url_for('static', filename='frames/' ~ frame) }}" alt="Frame {{ loop.index }}">
+          <p>Frame {{ loop.index }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <a href="/" class="back-btn">⬅ Upload Another Video</a>
+    <a href="/history" class="back-btn" style="background:#0d1b3d;">📜 View Detection History</a>
+
+  </div>
+</body>
+</html>
+
+

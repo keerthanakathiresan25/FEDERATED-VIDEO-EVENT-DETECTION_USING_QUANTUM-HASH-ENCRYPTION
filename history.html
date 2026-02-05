@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<title>Detection History</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    th, td {
+      text-align: left;
+      padding: 10px 15px;
+    }
+    th {
+      background: #1e3c72;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background: #f4f6ff;
+    }
+    tr:hover {
+      background: #e8ecff;
+    }
+    h1 {
+      color: #0d1b3d;
+    }
+  </style>
+</head>
+<body>
+  <div class="result-container">
+    <h1>📜 Detection History</h1>
+    {% if results %}
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Filename</th>
+        <th>Event</th>
+        <th>Confidence</th>
+        <th>Duration</th>
+        <th>Key</th>
+        <th>Timestamp</th>
+      </tr>
+      {% for row in results %}
+      <tr>
+        <td>{{ row[0] }}</td>
+        <td>{{ row[1] }}</td>
+        <td>{{ row[2] }}</td>
+        <td>{{ row[3] }}%</td>
+        <td>{{ row[4] }}</td>
+        <td style="font-family: monospace;">{{ row[5] }}</td>
+        <td>{{ row[6] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+    <p>No detection records found.</p>
+    {% endif %}
+    <a href="/" class="back-btn">⬅ Back to Upload</a>
+  </div>
+</body>
+</html>
+
